@@ -77,9 +77,6 @@ export default function RootLayout({
               {/* <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent to-90%"></div> */}
             </div>
             <div className="">
-              <Suspense fallback={<div>Loading...</div>}>
-                <Menu />
-              </Suspense>
               <main className="">{children}</main>
               <Footer />
             </div>
