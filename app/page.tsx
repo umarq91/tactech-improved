@@ -2,7 +2,6 @@ import { HeroSection } from "@/components/sections/hero-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import ProjectGsap from "@/components/projectsgsap";
 import { HorizontalServices } from "@/components/HorizontalShowcase";
-import { BentoDemo } from "@/components/sections/Bento";
 
 export default function Home() {
   return (
@@ -10,7 +9,6 @@ export default function Home() {
       <HeroSection />
 
       <HorizontalServices />
-      <BentoDemo />
       <ProjectGsap showmore={true} />
       {/* <ServicesSection /> */}
       <ContactSection />
