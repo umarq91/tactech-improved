@@ -76,7 +76,6 @@ export default function RootLayout({
               </div>
               {/* <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent to-90%"></div> */}
             </div>
-            <Menu />
             <div className="">
               <main className="">{children}</main>
               <Footer />
