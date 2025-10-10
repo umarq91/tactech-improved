@@ -2,13 +2,12 @@
 
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import { ThemeToggle } from "../ui/theme-toggle";
 import { cn } from "@/lib/utils";
 import clsx from "clsx";
 import { Music } from "lucide-react";
 import { motion } from "framer-motion";
+
 const menuItems = [
   { path: "/", label: "ABOUT" },
   { path: "/#services", label: "SERVICES" },
@@ -18,95 +17,100 @@ const menuItems = [
 
 const Menu = () => {
   const container = useRef<HTMLDivElement | null>(null);
-  const t1 = useRef<gsap.core.Timeline | null>(null);
+  const t1 = useRef<any>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
   const linkRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   //audio
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
-  const [isIndicatorActive, setIsIndicatorActive] = useState(false);
-  const audioElementRef = useRef<any>(null);
+  const audioElementRef = useRef<HTMLAudioElement | null>(null);
+
   useEffect(() => {
     setIsHydrated(true);
   }, []);
-  // Toggle audio and visual indicator
+
+  // Toggle audio
   const toggleAudioIndicator = () => {
     setIsAudioPlaying((prev) => !prev);
-    setIsIndicatorActive((prev) => !prev);
   };
 
   // Manage audio playback
   useEffect(() => {
     if (isAudioPlaying) {
-      audioElementRef.current.play();
+      audioElementRef.current?.play();
     } else {
-      audioElementRef.current.pause();
+      audioElementRef.current?.pause();
     }
   }, [isAudioPlaying]);
-  useGSAP(
-    () => {
-      if (!isHydrated) return;
 
-      // Initial setup - hide all animated elements
-      gsap.set(".menu-link-item-holder", { y: 75, opacity: 0 });
-      gsap.set(".menu-link", { y: "100%", opacity: 0 });
-      gsap.set(".menu-overlay-bar", { y: -50, opacity: 0 });
-      gsap.set(".menu-info > *", { y: 20, opacity: 0 });
+  // 🧠 Lazy-load GSAP and build timeline only when needed
+  const buildTimeline = (gsap: any) => {
+    const tl = gsap.timeline({ paused: true });
 
-      t1.current = gsap
-        .timeline({ paused: true })
-        .to(".menu-overlay", {
-          duration: 1,
-          clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-          ease: "expo.inOut",
-        })
-        .to(
-          ".menu-overlay-bar",
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            ease: "power3.out",
-          },
-          "-=0.8"
-        )
-        .to(
-          ".menu-link-item-holder",
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power3.out",
-          },
-          "-=0.6"
-        )
-        .to(
-          ".menu-link",
-          {
-            y: "0%",
-            opacity: 1,
-            duration: 1,
-            stagger: 0.1,
-            ease: "expo.out",
-          },
-          "-=0.8"
-        )
-        .to(
-          ".menu-info > *",
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.1,
+    gsap.set(".menu-link-item-holder", { y: 100, opacity: 0 });
+    gsap.set(".menu-overlay-bar", { y: 80, opacity: 0 });
+
+    tl.to(".menu-overlay", {
+      duration: 1,
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+      ease: "expo.inOut",
+    })
+      .to(
+        ".menu-overlay-bar",
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.05,
+        },
+        "-=0.8"
+      )
+      .to(
+        ".menu-link-item-holder",
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+        },
+        "-=0.6"
+      );
+
+    return tl;
+  };
+
+  const toggleMenu = async () => {
+    if (!isMenuOpen && !t1.current) {
+      // ✅ Lazy load GSAP only when menu opens first time
+      const gsapModule = await import("gsap");
+      const gsap = gsapModule.default || gsapModule; // ✅ Get proper GSAP instance
+      t1.current = buildTimeline(gsap as any);
+
+      // Setup link hover only once after GSAP is loaded
+      linkRefs.current.forEach((link) => {
+        if (!link) return;
+        link.addEventListener("mouseenter", () => {
+          gsap.to(link.querySelector(".menu-link"), {
+            y: "-10%",
+            duration: 0.3,
             ease: "power2.out",
-          },
-          "-=0.6"
-        );
-    },
-    { scope: container, dependencies: [isHydrated] }
-  );
+          });
+        });
+        link.addEventListener("mouseleave", () => {
+          gsap.to(link.querySelector(".menu-link"), {
+            y: "0%",
+            duration: 0.3,
+            color: "#000",
+          });
+        });
+      });
+    }
+
+    setIsMenuOpen((prev) => !prev);
+  };
 
   useEffect(() => {
     if (!t1.current) return;
@@ -117,39 +121,6 @@ const Menu = () => {
       document.body.style.overflow = "auto";
     };
   }, [isMenuOpen]);
-
-  const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev);
-  };
-
-  // Hover animation for links
-  const setupLinkHover = () => {
-    linkRefs.current.forEach((link) => {
-      if (!link) return;
-
-      link.addEventListener("mouseenter", () => {
-        gsap.to(link.querySelector(".menu-link"), {
-          y: "-10%",
-          duration: 0.3,
-          ease: "power2.out",
-        });
-      });
-
-      link.addEventListener("mouseleave", () => {
-        gsap.to(link.querySelector(".menu-link"), {
-          y: "0%",
-          duration: 0.3,
-          color: "#000",
-        });
-      });
-    });
-  };
-
-  useEffect(() => {
-    if (isHydrated) {
-      setupLinkHover();
-    }
-  }, [isHydrated]);
 
   return (
     <div ref={container} className="menu-container">
@@ -209,6 +180,7 @@ const Menu = () => {
                 </span>
               )}
             </button>
+
             {/* Audio Toggle with Indicator */}
             <div className="ml-4">
               <button
@@ -216,12 +188,14 @@ const Menu = () => {
                 aria-label={isAudioPlaying ? "Pause audio" : "Play audio"}
                 className="p-2 rounded-md transition-colors hover:bg-muted focus:outline-none"
               >
-                <audio
-                  ref={audioElementRef}
-                  className="hidden"
-                  src="/audio/lofi.mp3"
-                  loop
-                />
+                {isHydrated && (
+                  <audio
+                    ref={audioElementRef}
+                    className="hidden"
+                    src="/audio/lofi.mp3"
+                    loop
+                  />
+                )}
 
                 <motion.div
                   className="relative flex items-center justify-center"
@@ -235,7 +209,6 @@ const Menu = () => {
                     )}
                   />
 
-                  {/* Minimal glow indicator */}
                   {isAudioPlaying && (
                     <motion.span
                       className="absolute h-6 w-6 rounded-full bg-primary/20"
@@ -277,7 +250,6 @@ const Menu = () => {
           </div>
         </div>
 
-        {/* Menu Content */}
         <div className="flex flex-1 flex-col md:flex-row gap-12">
           {/* Navigation Links */}
           <div className="menu-links flex-1 flex flex-col justify-center lg:pl-40">
@@ -293,7 +265,7 @@ const Menu = () => {
                     className="menu-link text-6xl md:text-8xl font-bold tracking-tight block relative overflow-hidden"
                     onClick={toggleMenu}
                   >
-                    <span className="menu-link-text inline-block will-change-transform  text-white dark:text-black hover:text-black dark:hover:text-white transition-colors duration-100">
+                    <span className="menu-link-text inline-block will-change-transform text-white dark:text-black hover:text-black dark:hover:text-white transition-colors duration-100">
                       {link.label}
                     </span>
                   </Link>
@@ -303,7 +275,7 @@ const Menu = () => {
           </div>
 
           {/* Additional Info Section */}
-          <div className="menu-info flex-1 flex flex-col justify-end pb-12 text-white dark:text-black ">
+          <div className="menu-info flex-1 flex flex-col justify-end pb-12 text-white dark:text-black">
             <div className="mb-8">
               <h3 className="text-xl font-medium mb-4">Get in touch</h3>
               <p className="text-lg mb-2">hello@tactech.com</p>

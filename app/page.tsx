@@ -7,7 +7,6 @@ import Menu from "@/components/custom/menu";
 export default function Home() {
   return (
     <div className="relative w-full overflow-x-hidden">
-      <Menu />
       <HeroSection />
 
       <HorizontalServices />
