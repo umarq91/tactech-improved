@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { HeroSection } from "@/components/sections/hero-section";
 
 const Menu = dynamic(() => import("@/components/custom/menu"), {
@@ -46,7 +46,10 @@ export default function Home() {
       {showMenu && <Menu />}
       <HeroSection />
       <HorizontalServices />
-      <BentoGrid />
+      <Suspense fallback="loading...">
+        <BentoGrid />
+      </Suspense>
+
       <ProjectGsap showmore={true} />
       <ContactSection />
     </div>

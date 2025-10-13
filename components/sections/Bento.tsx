@@ -1,11 +1,9 @@
-import { CalendarIcon, FileTextIcon, RocketIcon } from "@radix-ui/react-icons";
-import { Share2Icon, Globe, Users, Save, ShoppingCart } from "lucide-react";
+import { FileTextIcon, RocketIcon } from "@radix-ui/react-icons";
+import { Globe, Users, ShoppingCart } from "lucide-react";
 import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
-import { Marquee } from "@/components/magicui/marquee";
 import { GlobalReachDemo } from "../magicui/globe";
 import { IconCloud } from "../magicui/icon-cloud";
 import { cn } from "@/lib/utils";
-import { Calendar } from "@/components/ui/calendar";
 import { InfiniteTestimonialMarquee } from "../custom/InfiniteMarquee";
 
 const slugs = [
@@ -70,7 +68,6 @@ const testimonials = [
   },
 ];
 
-const firstRow = testimonials.slice(0, testimonials.length / 2);
 const images = slugs.map(
   (slug) => `https://cdn.simpleicons.org/${slug}/${slug}`
 );
@@ -131,25 +128,30 @@ export function BentoDemo() {
       className: "col-span-1 sm:col-span-2 lg:col-span-1",
       href: "#",
       background: (
-<div className="inset-0 z-[-1] flex flex-col items-center justify-center pt-3 text-center">
-  <div className="mb-4">
-    <p className="text-sm font-medium text-gray-400">Delivered</p>
-    <h3 className="text-xl font-semibold text-white">200+ Successful Projects</h3>
-    <p className="text-sm text-gray-500 mt-1">Across 15+ countries & industries</p>
-  </div>
+        <div className="inset-0 z-[-1] flex flex-col items-center justify-center pt-3 text-center">
+          <div className="mb-4">
+            <p className="text-sm font-medium text-gray-400">Delivered</p>
+            <h3 className="text-xl font-semibold text-white">
+              200+ Successful Projects
+            </h3>
+            <p className="text-sm text-gray-500 mt-1">
+              Across 15+ countries & industries
+            </p>
+          </div>
 
-  <div className="grid grid-cols-2 gap-3">
-    {["E-commerce", "SaaS Platforms", "Mobile Apps", "Web Apps"].map((item) => (
-      <div
-        key={item}
-        className="rounded-lg border border-gray-200/10 bg-gray-100/5 p-3 backdrop-blur-sm"
-      >
-        <p className="text-sm font-medium text-white">{item}</p>
-      </div>
-    ))}
-  </div>
-</div>
-
+          <div className="grid grid-cols-2 gap-3">
+            {["E-commerce", "SaaS Platforms", "Mobile Apps", "Web Apps"].map(
+              (item) => (
+                <div
+                  key={item}
+                  className="rounded-lg border border-gray-200/10 bg-gray-100/5 p-3 backdrop-blur-sm"
+                >
+                  <p className="text-sm font-medium text-white">{item}</p>
+                </div>
+              )
+            )}
+          </div>
+        </div>
       ),
     },
     {
