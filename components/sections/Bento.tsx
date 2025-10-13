@@ -2,7 +2,7 @@ import { CalendarIcon, FileTextIcon, RocketIcon } from "@radix-ui/react-icons";
 import { Share2Icon, Globe, Users, Save, ShoppingCart } from "lucide-react";
 import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
 import { Marquee } from "@/components/magicui/marquee";
-import { GlobeDemo } from "../magicui/globe";
+import { GlobalReachDemo } from "../magicui/globe";
 import { IconCloud } from "../magicui/icon-cloud";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
@@ -85,7 +85,7 @@ export function BentoDemo() {
       className: "col-span-1 sm:col-span-2 lg:col-span-2",
       background: (
         <div className="absolute z-[-100] inset-0 h-full w-full overflow-hidden rounded-3xl">
-          <GlobeDemo />
+          <GlobalReachDemo />
         </div>
       ),
     },

@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { HeroSection } from "@/components/sections/hero-section";
+import { BentoDemo } from "@/components/sections/Bento";
 
 const Menu = dynamic(() => import("@/components/custom/menu"), {
   ssr: false,
@@ -33,16 +34,16 @@ export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
-    // 🕒 Delay hydration to prevent blocking hero animation
     const timer = setTimeout(() => setShowMenu(true), 800);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <div className="relative w-full overflow-x-hidden">
-      {showMenu && <Menu />} {/* Delayed mount */}
+      {showMenu && <Menu />} 
       <HeroSection />
       <HorizontalServices />
+      <BentoDemo />
       <ProjectGsap showmore={true} />
       <ContactSection />
     </div>
