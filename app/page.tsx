@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { HeroSection } from "@/components/sections/hero-section";
-import { BentoDemo } from "@/components/sections/Bento";
 
 const Menu = dynamic(() => import("@/components/custom/menu"), {
   ssr: false,
@@ -30,6 +29,10 @@ const ContactSection = dynamic(
   { ssr: false, loading: () => <div className="h-[300px]" /> }
 );
 
+const BentoGrid = dynamic(
+  () => import("@/components/sections/Bento").then((mod) => mod.BentoDemo),
+  { ssr: false, loading: () => <div className="h-[300px]" /> }
+);
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
 
@@ -40,10 +43,10 @@ export default function Home() {
 
   return (
     <div className="relative w-full overflow-x-hidden">
-      {showMenu && <Menu />} 
+      {showMenu && <Menu />}
       <HeroSection />
       <HorizontalServices />
-      <BentoDemo />
+      <BentoGrid />
       <ProjectGsap showmore={true} />
       <ContactSection />
     </div>
