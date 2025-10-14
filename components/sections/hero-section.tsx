@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
+import { ParticleBackground } from "../ParticalBackground";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -77,16 +78,13 @@ export function HeroSection() {
       id="hero"
       ref={heroRef}
     >
-
-      
       <motion.div
         className="absolute hidden md:block top-0 z-[0] h-full w-full opacity-10 bg-neutral-900/20 bg-[radial-gradient(ellipse_15%_60%_at_50%_10%,rgba(255,255,255,0.6),rgba(255,255,255,0))]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.1 }}
         transition={{ duration: 1, delay: 1 }}
       />
-
-      
+      <ParticleBackground />
       <div className="absolute inset-0 -z-10 flex">
         {[...Array(6)].map((_, i) => (
           <div
