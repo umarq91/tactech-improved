@@ -65,7 +65,7 @@ const Menu = () => {
           ease: "power3.out",
           stagger: 0.05,
         },
-        "-=0.8"
+        "-=0.8",
       )
       .to(
         ".menu-link-item-holder",
@@ -76,7 +76,7 @@ const Menu = () => {
           stagger: 0.1,
           ease: "power3.out",
         },
-        "-=0.6"
+        "-=0.6",
       );
 
     return tl;
@@ -127,26 +127,22 @@ const Menu = () => {
       {/* Menu Bar */}
       <header className="menu-bar fixed top-0 left-0 w-full p-6 z-50 bg-opacity-80 backdrop-blur-sm max-w-[100vw]">
         <div className="max-w-7xl mx-auto flex justify-between items-center w-full">
-          <div className="menu-logo text-xl font-medium font-inter">
+          <div className="menu-logo text-xl font-medium font-poppin">
             <Link
               href="/"
               className={` ${
                 !isMenuOpen
                   ? "text-black dark:text-white"
                   : "text-white dark:text-black"
-              } hover:text-gray-600 transition-colors font-urbanist text-2xl lg:text-4xl`}
+              } hover:text-gray-600 transition-colors text-2xl lg:text-4xl  font-poppins`}
             >
               Tactech
             </Link>
           </div>
-          <div className="hidden md:block">
-            <ThemeToggle />
-          </div>
+          <div className="hidden md:block">{/* <ThemeToggle /> */}</div>
 
           <div className="flex gap-2 justify-center items-center">
-            <div className="md:hidden">
-              <ThemeToggle />
-            </div>
+            <div className="md:hidden">{/* <ThemeToggle /> */}</div>
             <button
               onClick={toggleMenu}
               className="relative w-8 h-6 flex flex-col justify-between items-center z-[100]"
@@ -205,7 +201,7 @@ const Menu = () => {
                   <Music
                     className={clsx(
                       "h-6 w-6 transition-colors duration-300",
-                      isAudioPlaying ? "text-primary" : "text-muted-foreground"
+                      isAudioPlaying ? "text-primary" : "text-muted-foreground",
                     )}
                   />
 
@@ -242,7 +238,7 @@ const Menu = () => {
             <div className="menu-logo text-xl font-medium">
               <Link
                 href="/"
-                className="hover:text-gray-600 transition-colors text-primary"
+                className="hover:text-gray-600 transition-colors text-primary  font-poppins"
               >
                 Tactech
               </Link>

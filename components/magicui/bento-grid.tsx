@@ -50,7 +50,7 @@ const BentoCard = ({
       // light styles - lighten background and shadows
       "bg-[#f9f9f9] [box-shadow:0_0_0_1px_rgba(0,0,0,0.02),0_1px_2px_rgba(0,0,0,0.03),0_6px_12px_rgba(0,0,0,0.04)]",
       // dark styles - brighten slightly and reduce dark inset
-      "transform-gpu dark:bg-[#1a1a1a] dark:[border:1px_solid_rgba(255,255,255,0.08)] dark:[box-shadow:0_-10px_40px_-10px_#ffffff12_inset]",
+      "transform-gpu dark:bg-zinc-900/40 ",
       className
     )}
     {...props}

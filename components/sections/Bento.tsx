@@ -69,7 +69,7 @@ const testimonials = [
 ];
 
 const images = slugs.map(
-  (slug) => `https://cdn.simpleicons.org/${slug}/${slug}`
+  (slug) => `https://cdn.simpleicons.org/${slug}/${slug}`,
 );
 
 export function BentoDemo() {
@@ -103,7 +103,7 @@ export function BentoDemo() {
                 >
                   <p className="text-sm font-medium">{item}</p>
                 </div>
-              )
+              ),
             )}
           </div>
         </div>
@@ -148,7 +148,7 @@ export function BentoDemo() {
                 >
                   <p className="text-sm font-medium text-white">{item}</p>
                 </div>
-              )
+              ),
             )}
           </div>
         </div>
@@ -172,20 +172,24 @@ export function BentoDemo() {
     },
   ];
   return (
-    <div className="max-w-[1800px] mx-auto px-4 md:px-8">
-      <BentoGrid className="gap-4 md:gap-6 lg:gap-8">
-        {features.map((feature, idx) => (
-          <BentoCard
-            key={idx}
-            {...feature}
-            className={cn(
-              "group relative overflow-hidden rounded-3xl border border-gray-200/10 bg-gradient-to-b from-gray-100/5 to-transparent backdrop-blur-xl",
-              "transition-all duration-300 hover:border-gray-200/20 hover:bg-gray-100/10",
-              feature.className
-            )}
-          />
-        ))}
-      </BentoGrid>
-    </div>
+    <section id="about" className="py-32 relative">
+      <div className="container mx-auto px-6">
+        <div className="mb-20">
+          <span className="text-xs font-bold tracking-[0.3em] uppercase text-zinc-500 mb-6 block">
+            Impact Metric
+          </span>
+          <h2 className="text-5xl md:text-7xl font-bold tracking-tighter font-poppins">
+            Engineered for <br />
+            <span className="text-zinc-600">Global Domination.</span>
+          </h2>
+        </div>
+
+        <BentoGrid>
+          {features.map((feature, idx) => (
+            <BentoCard key={idx} {...feature} />
+          ))}
+        </BentoGrid>
+      </div>
+    </section>
   );
 }

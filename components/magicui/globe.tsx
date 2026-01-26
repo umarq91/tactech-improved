@@ -1,59 +1,91 @@
-"use client";
+
+import React from "react";
 import { motion } from "framer-motion";
-import { Globe } from "lucide-react";
+import { Globe as GlobeIcon } from "lucide-react";
 
 export function GlobalReachDemo() {
   const dots = [
     { top: "30%", left: "20%" },
     { top: "50%", left: "50%" },
-    { top: "60%", left: "80%" },
-    { top: "40%", left: "70%" },
-    { top: "70%", left: "35%" },
+    { top: "65%", left: "80%" },
+    { top: "40%", left: "75%" },
+    { top: "75%", left: "30%" },
+    { top: "25%", left: "60%" },
   ];
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center  overflow-hidden rounded-3xl">
-      {/* Subtle world icon in the background */}
-      <Globe className="absolute text-gray-500/10 w-64 h-64 animate-pulse" />
+    <div className="relative w-full h-full flex items-center justify-center bg-black/20 overflow-hidden">
+      {/* Dynamic Background Atmosphere */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(56,189,248,0.1),transparent_70%)]" />
+      
+      {/* Animated Orbit Rings */}
+      <motion.div 
+        animate={{ rotate: 360 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="absolute w-[80%] h-[80%] border border-white/5 rounded-full"
+      />
+      <motion.div 
+        animate={{ rotate: -360 }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        className="absolute w-[60%] h-[60%] border border-white/5 rounded-full"
+      />
 
-      {/* Animated connection lines */}
-      <motion.svg
+      {/* Central Globe Icon with glow */}
+      <div className="relative">
+        <GlobeIcon className="text-white/20 w-48 h-48 animate-pulse" />
+        <div className="absolute inset-0 blur-2xl bg-sky-500/10 rounded-full" />
+      </div>
+
+      {/* Animated Connection Paths */}
+      <svg
         viewBox="0 0 200 100"
-        className="absolute w-[80%] opacity-40"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+        className="absolute w-[90%] h-full opacity-60 z-10 pointer-events-none"
       >
-        <motion.path
-          d="M20 60 C60 20, 140 20, 180 60"
-          fill="transparent"
-          stroke="url(#grad)"
-          strokeWidth="1"
-          strokeLinecap="round"
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: 1 }}
-          transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
-        />
         <defs>
-          <linearGradient id="grad" x1="0" x2="1">
-            <stop offset="0%" stopColor="#38bdf8" />
-            <stop offset="100%" stopColor="#6366f1" />
+          <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="transparent" />
+            <stop offset="50%" stopColor="#38bdf8" />
+            <stop offset="100%" stopColor="transparent" />
           </linearGradient>
         </defs>
-      </motion.svg>
+        
+        {/* Connection Arcs */}
+        <motion.path
+          d="M30 40 Q 100 0 170 60"
+          stroke="url(#lineGrad)"
+          strokeWidth="0.5"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: [0, 1, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.path
+          d="M40 70 Q 100 90 160 30"
+          stroke="url(#lineGrad)"
+          strokeWidth="0.5"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: [0, 1, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        />
+      </svg>
 
-      {/* Pulsing dots representing global locations */}
+      {/* Global Location Nodes */}
       {dots.map((dot, i) => (
         <motion.div
           key={i}
-          className="absolute w-2 h-2 bg-sky-400 rounded-full shadow-md"
+          className="absolute z-20"
           style={{ top: dot.top, left: dot.left }}
-          animate={{
-            scale: [1, 1.5, 1],
-            opacity: [0.8, 1, 0.8],
-          }}
-          transition={{ duration: 2 + i * 0.3, repeat: Infinity }}
-        />
+        >
+          {/* Outer Pulse */}
+          <motion.div
+            className="absolute -inset-2 bg-sky-400/20 rounded-full"
+            animate={{ scale: [1, 2, 1], opacity: [0, 0.5, 0] }}
+            transition={{ duration: 3, repeat: Infinity, delay: i * 0.4 }}
+          />
+          {/* Inner Core */}
+          <div className="w-1.5 h-1.5 bg-sky-400 rounded-full shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
+        </motion.div>
       ))}
     </div>
   );

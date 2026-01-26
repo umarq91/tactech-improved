@@ -1,294 +1,149 @@
-"use client";
-
-import { useRef, useEffect } from "react";
-import { ArrowRight, Code, Rocket, Sparkles } from "lucide-react";
-import { motion } from "framer-motion";
+import React, { useRef, useEffect } from "react";
+import { ArrowRight, Code, Rocket, Sparkles, Zap } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Button } from "@/components/ui/button";
-import { ParticleBackground } from "../ParticalBackground";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+export const HeroSection: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollY } = useScroll();
 
-export function HeroSection() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const particlesRef = useRef(null);
+  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   useEffect(() => {
-    if (particlesRef.current) {
-      ScrollTrigger.create({
-        trigger: heroRef.current,
-        start: "top top",
-        end: "bottom top",
-        onUpdate: (self) => {
-          const progress = self.progress;
-          if (particlesRef.current) {
-            (particlesRef.current as any).density = 10000 + progress * 50000;
-          }
-        },
-      });
-    }
+    const tl = gsap.timeline();
+    tl.fromTo(
+      ".hero-text-line",
+      { y: 100, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: "power4.out" },
+    );
 
-    gsap.from(".grid-line", {
-      scaleY: 0,
+    gsap.from(".hero-decoration", {
+      scale: 0,
+      opacity: 0,
       duration: 1.5,
-      stagger: 0.1,
-      ease: "expo.out",
-      transformOrigin: "bottom",
+      delay: 0.5,
+      stagger: 0.2,
+      ease: "elastic.out(1, 0.5)",
     });
   }, []);
 
-  // Floating animation configuration
-  const floatingAnimation = {
-    y: [0, 0, 0],
-    transition: {
-      duration: 4,
-      repeat: Infinity,
-      repeatType: "reverse",
-      ease: "easeInOut",
-    },
-  };
-
-  // Container animation
-  const containerAnimation = {
-    hidden: { opacity: 0, y: 20, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 0.8 },
-    },
-  };
-
-  // Pulsing ring animation
-  const ringAnimation = {
-    scale: [1, 1.1, 1],
-    transition: {
-      duration: 3,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
-  };
-
   return (
     <section
-      className="relative min-h-[100vh] h-auto sm:mt-0 in-center bg-background"
-      id="hero"
-      ref={heroRef}
+      ref={containerRef}
+      className="relative min-h-screen bg-background flex flex-col items-center justify-center pt-32 pb-20 overflow-hidden"
     >
+      {/* Decorative Grid */}
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+
       <motion.div
-        className="absolute hidden md:block top-0 z-[0] h-full w-full opacity-10 bg-neutral-900/20 bg-[radial-gradient(ellipse_15%_60%_at_50%_10%,rgba(255,255,255,0.6),rgba(255,255,255,0))]"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.1 }}
-        transition={{ duration: 1, delay: 1 }}
-      />
-      <ParticleBackground />
-      <div className="absolute inset-0 -z-10 flex">
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={i}
-            className="grid-line flex-1 border-r border-border/[0.05]"
-            style={{ transformOrigin: "bottom" }}
-          />
-        ))}
-      </div>
+        style={{ y: y1, opacity }}
+        className="container mx-auto px-6 text-center relative z-10"
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-zinc-400 text-xs font-medium mb-8 backdrop-blur-sm"
+        >
+          <Zap className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+          <span>Your #1 choice for digital products</span>
+        </motion.div>
 
-      <div className="container relative">
-        <div className="max-w-3xl pt-10 md:pt-2 mx-auto text-center space-y-4">
+        <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-[0.9] font-poppins mb-8">
           <div className="overflow-hidden">
-            <motion.h1
-              className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight leading-tight md:leading-normal text-center font-poppins"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <motion.span
-                className="block bg-clip-text bg-[length:200%_200%] animate-shine"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0,
-                  ease: "backOut",
-                }}
-                style={{
-                  backgroundImage:
-                    "conic-gradient(at_top_right, #000000, #1f2937, #4b5563, #111827, #000000)",
-                }}
-              >
-                Tactically Engineered
-              </motion.span>
-              <motion.span
-                className="block  bg-clip-text bg-[length:200%_200%] animate-shine"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.4,
-                  ease: "backOut",
-                }}
-                style={{
-                  backgroundImage:
-                    "conic-gradient(at_top_right, #ffffff, #e5e7eb, #d1d5db, #f9fafb, #ffffff)",
-                }}
-              >
-                Technically Brilliant
-              </motion.span>
-            </motion.h1>
+            <span className="hero-text-line block bg-gradient-to-b from-white to-zinc-500 bg-clip-text text-transparent pb-4">
+              Tactically Engineered.
+            </span>
           </div>
+          <div className="overflow-hidden">
+            <span className="hero-text-line block text-zinc-400">
+              Technically Brilliant.
+            </span>
+          </div>
+        </h1>
 
-          <motion.p
-            className="text-base md:text-lg text-muted-foreground mt-2 md:mt-4 max-w-2xl mx-auto px-4 md:px-0"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Tactech delivers cutting-edge software solutions that drive business
-            growth. We blend innovation, expertise, and precision to create
-            digital experiences that matter.
-          </motion.p>
-
-          <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 mt-6 md:mt-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <Button
-              size="lg"
-              className="rounded-full group relative overflow-hidden"
-            >
-              <motion.span
-                className="absolute inset-0 bg-gradient-to-r from-primary to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                initial={{ opacity: 0 }}
-              />
-              <span className="relative z-10 flex items-center">
-                <a href="/#contact">Get Started </a>
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </span>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="rounded-full hover:bg-background hover:text-foreground transition-colors"
-            >
-              <a href="/#services">Our Services </a>
-            </Button>
-          </motion.div>
-        </div>
-
-        {/* Floating elements - now using pure Framer Motion */}
-        <motion.div
-          className="absolute hidden md:block right-[10%] top-20"
-          initial="hidden"
-          animate="visible"
-          variants={containerAnimation}
-          transition={{ delay: 0.7 }}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto mb-12 leading-relaxed"
         >
-          <motion.div
-            className="relative h-16 w-16 rounded-full bg-gradient-to-r from-yellow-400/20 to-amber-500/20 backdrop-blur-md border border-yellow-400/10 flex items-center justify-center"
-            animate={floatingAnimation as any}
-          >
-            <Sparkles className="h-6 w-6 text-yellow-400" />
-            <motion.div
-              className="absolute inset-0 rounded-full border border-primary/20"
-              animate={ringAnimation}
-            />
-          </motion.div>
-        </motion.div>
+          We build digital infrastructure that defines the future. Tactech
+          delivers elite SaaS solutions and enterprise architectures with
+          surgical precision.
+        </motion.p>
+      </motion.div>
 
-        <motion.div
-          className="absolute hidden md:block left-[8%] xl:left-[15%] top-1/3 xl:top-1/2"
-          initial="hidden"
-          animate="visible"
-          variants={containerAnimation}
-          transition={{ delay: 0.9 }}
-        >
-          <motion.div
-            className="relative h-16 w-16 rounded-full bg-gradient-to-r from-purple-500/20 to-indigo-500/20 backdrop-blur-md border border-purple-500/10 flex items-center justify-center"
-            animate={floatingAnimation as any}
-          >
-            <Rocket className="h-6 w-6 text-purple-500" />
-            <motion.div
-              className="absolute inset-0 rounded-full border border-primary/20"
-              animate={{
-                ...ringAnimation,
-                transition: { ...ringAnimation.transition, duration: 3.5 },
-              }}
-            />
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          className="absolute hidden md:block right-[20%] bottom-4 xl:bottom-1/3"
-          initial="hidden"
-          animate="visible"
-          variants={containerAnimation}
-          transition={{ delay: 1.1 }}
-        >
-          <motion.div
-            className="relative h-16 w-16 rounded-full bg-gradient-to-r from-green-500/20 to-emerald-500/20 backdrop-blur-md border border-green-500/10 flex items-center justify-center"
-            animate={
-              {
-                ...floatingAnimation,
-                transition: { ...floatingAnimation.transition, delay: 0.5 },
-              } as any
-            }
-          >
-            <Code className="h-6 w-6 text-green-500" />
-            <motion.div
-              className="absolute inset-0 rounded-full border border-primary/20"
-              animate={{
-                ...ringAnimation,
-                transition: { ...ringAnimation.transition, duration: 4 },
-              }}
-            />
-          </motion.div>
-        </motion.div>
-
-        {/* Background shapes */}
-        <motion.div
-          className="absolute left-0 bottom-0 w-64 h-64 rounded-full bg-primary/10 blur-3xl -z-20"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.1, 0.2, 0.1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+      {/* Floating Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <FloatingBadge
+          icon={<Sparkles className="w-6 h-6" />}
+          color="text-yellow-400"
+          top="20%"
+          left="15%"
+          delay={0}
         />
-        <motion.div
-          className="absolute right-0 top-0 w-96 h-96 rounded-full bg-blue-500/10 blur-3xl -z-20"
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.1, 0.15, 0.1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
+        <FloatingBadge
+          icon={<Rocket className="w-6 h-6" />}
+          color="text-purple-500"
+          top="35%"
+          right="10%"
+          delay={0.5}
+        />
+        <FloatingBadge
+          icon={<Code className="w-6 h-6" />}
+          color="text-blue-500"
+          bottom="20%"
+          left="20%"
+          delay={1}
+        />
+        <FloatingBadge
+          icon={<Zap className="w-6 h-6" />}
+          color="text-emerald-500"
+          bottom="15%"
+          right="25%"
+          delay={1.5}
         />
       </div>
 
-      <style jsx global>{`
-        @keyframes shine {
-          0% {
-            background-position: 0% 50%;
-          }
-          100% {
-            background-position: 200% 50%;
-          }
-        }
-        .animate-shine {
-          animation: shine 3s linear infinite;
-        }
-      `}</style>
+      {/* Background Orbs */}
+      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-purple-600/20 blur-[120px] rounded-full -z-10 animate-pulse" />
+      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-blue-600/20 blur-[120px] rounded-full -z-10 animate-pulse delay-700" />
     </section>
   );
-}
+};
+
+const FloatingBadge: React.FC<{
+  icon: React.ReactNode;
+  color: string;
+  top?: string;
+  bottom?: string;
+  left?: string;
+  right?: string;
+  delay: number;
+}> = ({ icon, color, top, bottom, left, right, delay }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0 }}
+    animate={{
+      opacity: 1,
+      scale: 1,
+      y: [0, -20, 0],
+      rotate: [0, 10, -10, 0],
+    }}
+    transition={{
+      opacity: { duration: 0.5, delay },
+      scale: { duration: 0.5, delay },
+      y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: delay * 2 },
+      rotate: {
+        duration: 6,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: delay * 1.5,
+      },
+    }}
+    className="hero-decoration absolute p-4 rounded-2xl bg-zinc-900/50 backdrop-blur-md border border-white/10 shadow-2xl z-0 hidden lg:flex"
+    style={{ top, bottom, left, right }}
+  >
+    <div className={color}>{icon}</div>
+  </motion.div>
+);

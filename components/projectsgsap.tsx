@@ -4,7 +4,6 @@ import React from "react";
 import { FlipWords } from "./custom/Flipwords";
 import { projectsData } from "@/lib/data";
 import { useRouter } from "next/navigation";
-import { StarBackground } from "./StarryBackground";
 import Image from "next/image";
 
 function ProjectGsap({ showmore }: { showmore?: boolean }) {
@@ -51,15 +50,28 @@ function ProjectGsap({ showmore }: { showmore?: boolean }) {
       id="projects"
       className="w-full mt-10 py-10 pb-20 px-4 sm:px-8 lg:px-12 lg:px-20 max-w-[2300px] mx-auto"
     >
-      <StarBackground />
-      <div className="border-b border-zinc-600 pb-10">
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl leading-tight tracking-tight">
-          Featured{" "}
-          <span className="-ml-2 mt-1  -mr-3 text-blue-500 font-bold -z-[1]">
-            <FlipWords words={["Web Dev", "Mobile Dev", "System Design"]} />
-          </span>{" "}
-          <span className="-ml-3">Projects</span>
-        </h1>
+      {/* Refined Header Section */}
+      <div className="border-b border-white/5 pb-16 mb-20 relative z-10">
+        <div className="flex flex-col gap-4">
+          <motion.span
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            className="text-xs font-bold tracking-[0.5em] uppercase text-blue-500 mb-2 block"
+          >
+            Tactical Operations
+          </motion.span>
+          <h1 className="text-5xl md:text-8xl font-bold tracking-tighter font-poppins text-white leading-[0.9]">
+            Featured{" "}
+            <span className="relative inline-block min-w-[280px] md:min-w-[450px]">
+              <FlipWords
+                words={["Web Dev", "Mobile Dev", "Cloud Systems"]}
+                className="font-black text-white"
+              />
+            </span>{" "}
+            <br />
+            <span className="text-zinc-600">Project Archive.</span>
+          </h1>
+        </div>
       </div>
 
       <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
