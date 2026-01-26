@@ -17,7 +17,7 @@ export let projectsData = [
     description:
       "It is an LMS for companies to access compliance related documents and resources. Contains up to 100,000 resources including videos, documents, and articles.",
     tags: ["AI", "Next.js", "Laravel", "Elastic Search", "Typescript", "Saas"],
-    image: "/ehs.png",
+    image: "/lms.png",
     link: null,
   },
   {
@@ -72,7 +72,7 @@ export let projectsData = [
     link: "https://dominatewear.com",
   },
   {
-    title: "Fomrio",
+    title: "Formio",
     description:
       "Form.io is a React-based platform that enables dynamic and customizable form submissions, supporting features like barcode scanning and real-time location and many more",
     tags: ["Mobile App", "Geolocation", "Analytics"],
@@ -266,4 +266,3 @@ export const services = [
     },
   },
 ];
-

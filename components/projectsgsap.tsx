@@ -74,7 +74,7 @@ function ProjectGsap({ showmore }: { showmore?: boolean }) {
         </div>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+      <div className="mt-10 grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
         {projects.map((project, index) => (
           <motion.div
             key={index}
@@ -84,7 +84,7 @@ function ProjectGsap({ showmore }: { showmore?: boolean }) {
           >
             {/* Floating title - hidden on mobile, visible on desktop */}
             <h1
-              className={`hidden lg:flex absolute overflow-hidden  ${
+              className={`hidden xl:flex absolute overflow-hidden  ${
                 index % 2 === 0
                   ? "left-full -translate-x-9"
                   : "right-full translate-x-9"
@@ -104,7 +104,7 @@ function ProjectGsap({ showmore }: { showmore?: boolean }) {
             </h1>
 
             {/* Mobile title - visible only on mobile */}
-            <h1 className="lg:hidden absolute top-4 left-4 z-[9] text-[#CDEA68] text-2xl font-medium ">
+            <h1 className="xl:hidden absolute top-4 left-4 z-[9] text-[#CDEA68] text-2xl font-medium ">
               {project.title}
             </h1>
 
@@ -152,49 +152,51 @@ function ProjectGsap({ showmore }: { showmore?: boolean }) {
                     {project.description}
                   </motion.p>
 
-                  <motion.div
+                    <motion.div
                     className="flex items-center gap-2 mt-2 sm:mt-3 lg:mt-4"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: hoveredIndex === index ? 1 : 0 }}
                     transition={{ delay: 0.4 }}
-                  >
+                    >
                     <button
+                      onClick={() => project.link && window.open(project.link, "_blank")}
+                      disabled={!project.link}
                       className={`px-4 py-1 sm:px-5 sm:py-2 lg:px-6 lg:py-2 rounded-full text-sm sm:text-base font-medium flex items-center gap-1 sm:gap-2 transition-colors ${
-                        project.link
-                          ? "bg-[#CDEA68] text-black hover:bg-[#c0e055]"
-                          : "bg-white/20 text-white/80 border border-white/20 cursor-not-allowed"
+                      project.link
+                        ? "bg-[#CDEA68] text-black hover:bg-[#c0e055]"
+                        : "bg-white/20 text-white/80 border border-white/20 cursor-not-allowed"
                       }`}
                     >
                       {project.link ? "View Project" : "Private Project"}
                       {project.link && (
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          className="hidden sm:block"
-                        >
-                          <path
-                            d="M7.5 3.5H4.5V12.5H13.5V9.5"
-                            stroke="currentColor"
-                            strokeWidth="1.2"
-                            strokeLinecap="round"
-                          />
-                          <path
-                            d="M10.5 3.5H13.5V6.5"
-                            stroke="currentColor"
-                            strokeWidth="1.2"
-                            strokeLinecap="round"
-                          />
-                          <path
-                            d="M13.5 3.5L7.5 9.5"
-                            stroke="currentColor"
-                            strokeWidth="1.2"
-                            strokeLinecap="round"
-                          />
-                        </svg>
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 16 16"
+                        className="hidden sm:block"
+                      >
+                        <path
+                        d="M7.5 3.5H4.5V12.5H13.5V9.5"
+                        stroke="currentColor"
+                        strokeWidth="1.2"
+                        strokeLinecap="round"
+                        />
+                        <path
+                        d="M10.5 3.5H13.5V6.5"
+                        stroke="currentColor"
+                        strokeWidth="1.2"
+                        strokeLinecap="round"
+                        />
+                        <path
+                        d="M13.5 3.5L7.5 9.5"
+                        stroke="currentColor"
+                        strokeWidth="1.2"
+                        strokeLinecap="round"
+                        />
+                      </svg>
                       )}
                     </button>
-                  </motion.div>
+                    </motion.div>
                 </div>
               </motion.div>
             </div>
