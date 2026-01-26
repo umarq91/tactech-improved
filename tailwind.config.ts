@@ -9,9 +9,8 @@ const config: Config = {
   ],
   theme: {
     fontFamily: {
-      kinder: ["var(--font-kinder)"],
       poppins: ["var(--font-poppins)"],
-      urbanist: ["var(--font-urbanist)"],
+      // urbanist: ["var(--font-urbanist)"],
     },
     extend: {
       backgroundImage: {

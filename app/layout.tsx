@@ -1,20 +1,10 @@
 // src/app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
-import {
-  Inter,
-  DM_Sans,
-  Poppins,
-  Urbanist,
-  Space_Grotesk,
-  Manrope,
-} from "next/font/google";
-import localFont from "next/font/local";
+import { DM_Sans, Poppins } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Providers } from "./providers";
 import Footer from "@/components/layout/footer";
-import Menu from "@/components/custom/menu";
-import { Suspense } from "react";
 
 // Google Fonts
 const dmSans = DM_Sans({ subsets: ["latin"] });
@@ -22,11 +12,6 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["600", "700"],
   variable: "--font-poppins",
-});
-const urbanist = Urbanist({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-  variable: "--font-urbanist",
 });
 
 export const metadata: Metadata = {
@@ -46,8 +31,7 @@ export default function RootLayout({
         className={cn(
           dmSans.className,
           poppins.variable,
-          urbanist.variable,
-          "antialiased font-sans max-w-[100vw] box-border"
+          "antialiased font-sans max-w-[100vw] box-border",
         )}
       >
         <Providers>
