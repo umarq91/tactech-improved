@@ -37,7 +37,7 @@ export default function ServiceModal({
             stagger: 0.1,
             ease: "power2.out",
           },
-          "-=0.6"
+          "-=0.6",
         )
         .to(
           ".modal-close-btn",
@@ -47,10 +47,10 @@ export default function ServiceModal({
             duration: 0.5,
             ease: "power2.out",
           },
-          "-=0.4"
+          "-=0.4",
         );
     },
-    { scope: modalRef }
+    { scope: modalRef },
   );
 
   useEffect(() => {
@@ -78,7 +78,7 @@ export default function ServiceModal({
           duration: 0.3,
           ease: "power2.in",
         },
-        "-=0.2"
+        "-=0.2",
       )
       .to(modalRef.current, {
         clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
@@ -109,7 +109,7 @@ export default function ServiceModal({
             <div
               className={cn(
                 "w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center bg-gradient-to-r",
-                service.color
+                service.color,
               )}
             >
               {service.icon}
@@ -175,9 +175,14 @@ export default function ServiceModal({
               {service.details.benefits.map((benefit, index) => (
                 <div
                   key={index}
-                  className="p-3 md:p-4 rounded-lg bg-muted/30 border border-muted-foreground/20"
+                  className="p-3 md:p-4 rounded-lg backdrop-blur-md 
+                 bg-gradient-to-br from-gray-800/20 to-gray-700/10 
+                 border border-gray-600/30
+                 shadow-lg shadow-gray-900/10
+                 hover:bg-gray-800/30 
+                 transition-all duration-300"
                 >
-                  <h4 className="font-medium text-sm md:text-base mb-1 md:mb-2">
+                  <h4 className="font-medium text-sm md:text-base mb-1 md:mb-2 text-black">
                     {benefit}
                   </h4>
                 </div>

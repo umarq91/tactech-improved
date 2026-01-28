@@ -276,22 +276,8 @@ const Menu = () => {
           <div className="menu-info flex-1 flex flex-col justify-end pb-12 text-white dark:text-black">
             <div className="mb-8">
               <h3 className="text-xl font-medium mb-4">Get in touch</h3>
-              <p className="text-lg mb-2">hello@tactech.com</p>
-              <p className="text-lg">+1 (555) 123-4567</p>
-            </div>
-            <div>
-              <h3 className="text-xl font-medium mb-4">Follow us</h3>
-              <div className="flex gap-4">
-                <a href="#" className="text-lg hover:underline">
-                  Twitter
-                </a>
-                <a href="#" className="text-lg hover:underline">
-                  Instagram
-                </a>
-                <a href="#" className="text-lg hover:underline">
-                  LinkedIn
-                </a>
-              </div>
+              <p className="text-lg mb-2">info@tactech.tech</p>
+              <p className="text-lg">+1 (813) 214-3086</p>
             </div>
           </div>
         </div>
