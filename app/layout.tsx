@@ -1,4 +1,3 @@
-// src/app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
 import { DM_Sans, Poppins } from "next/font/google";
@@ -18,6 +17,9 @@ export const metadata: Metadata = {
   title: "Tactech - Software Development & Digital Solutions",
   description:
     "Tactech delivers cutting-edge software solutions that drive business growth.",
+  icons: {
+    icon: "/tt.png",
+  },
 };
 
 export default function RootLayout({

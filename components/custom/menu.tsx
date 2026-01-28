@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import clsx from "clsx";
 import { Music } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const menuItems = [
   { path: "/", label: "ABOUT" },
@@ -127,18 +128,19 @@ const Menu = () => {
       {/* Menu Bar */}
       <header className="menu-bar fixed top-0 left-0 w-full p-6 z-50 bg-opacity-80 backdrop-blur-sm max-w-[100vw]">
         <div className="max-w-7xl mx-auto flex justify-between items-center w-full">
-          <div className="menu-logo text-xl font-medium font-poppin">
-            <Link
-              href="/"
-              className={` ${
-                !isMenuOpen
-                  ? "text-black dark:text-white"
-                  : "text-white dark:text-black"
-              } hover:text-gray-600 transition-colors text-2xl lg:text-4xl  font-poppins`}
-            >
-              Tactech
+          <div className="menu-logo flex items-center">
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src="/tt.png"
+                alt="Tactech logo"
+                width={40}
+                height={40}
+                priority
+                className={cn("transition-opacity", isMenuOpen ? "invert" : "")}
+              />
             </Link>
           </div>
+
           <div className="hidden md:block">{/* <ThemeToggle /> */}</div>
 
           <div className="flex gap-2 justify-center items-center">

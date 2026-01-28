@@ -19,19 +19,19 @@ import { sendEmail } from "@/lib/utils";
 
 const contactInfo = [
   {
-    icon: <MapPin className="h-5 w-5" />,
-    title: "Visit us",
-    description: "123 Tech Street, Innovation Park, Silicon Valley, CA 94025",
+    icon: <MapPin className="w-5 h-5" />,
+    title: "Visit Us",
+    description: "7901 4th St N, STE 300, St. Petersburg, FL, United States",
   },
   {
-    icon: <Mail className="h-5 w-5" />,
-    title: "Email us",
+    icon: <Mail className="w-5 h-5" />,
+    title: "Email Us",
     description: "info@tactech.com",
   },
   {
-    icon: <Phone className="h-5 w-5" />,
-    title: "Call us",
-    description: "+1 (555) 123-4567",
+    icon: <Phone className="w-5 h-5" />,
+    title: "Call Us",
+    description: "+1 (813) 214-3086",
   },
 ];
 
@@ -46,7 +46,7 @@ export function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     try {
       const formData = new FormData(formRef.current!);
       const data = Object.fromEntries(formData.entries());
@@ -60,7 +60,7 @@ export function ContactSection() {
 
       setIsSubmitted(true);
       formRef.current?.reset();
-      
+
       // Reset submission status after 5 seconds
       setTimeout(() => setIsSubmitted(false), 5000);
     } catch (error) {
@@ -129,7 +129,8 @@ export function ContactSection() {
                     <CheckCircle className="h-12 w-12 text-green-500 mb-4" />
                     <h3 className="text-xl font-semibold mb-2">Thank you!</h3>
                     <p className="text-muted-foreground">
-                      Your message has been sent successfully. We'll get back to you soon.
+                      Your message has been sent successfully. We'll get back to
+                      you soon.
                     </p>
                   </div>
                 ) : (
@@ -141,11 +142,11 @@ export function ContactSection() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <Label htmlFor="name">Name</Label>
-                        <Input 
-                          id="name" 
-                          name="name" 
-                          placeholder="Your name" 
-                          required 
+                        <Input
+                          id="name"
+                          name="name"
+                          placeholder="Your name"
+                          required
                         />
                       </div>
                       <div className="space-y-2">

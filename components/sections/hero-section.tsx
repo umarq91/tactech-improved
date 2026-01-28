@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { ArrowRight, Code, Rocket, Sparkles, Zap } from "lucide-react";
+import { Code, Rocket, Sparkles, Zap } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
 
@@ -51,12 +51,12 @@ export const HeroSection: React.FC = () => {
 
         <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-[0.9] font-poppins mb-8">
           <div className="overflow-hidden">
-            <span className="hero-text-line block bg-gradient-to-b from-white to-zinc-500 bg-clip-text text-transparent pb-4">
+            <span className="hero-text-line opacity-0 block bg-gradient-to-b from-white to-zinc-500 bg-clip-text text-transparent pb-4">
               Tactically Engineered.
             </span>
           </div>
           <div className="overflow-hidden">
-            <span className="hero-text-line block text-zinc-400">
+            <span className="hero-text-line opacity-0 block text-zinc-400">
               Technically Brilliant.
             </span>
           </div>
