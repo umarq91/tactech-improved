@@ -46,7 +46,7 @@ export const HeroSection: React.FC = () => {
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-zinc-400 text-xs font-medium mb-8 backdrop-blur-sm"
         >
           <Zap className="w-3 h-3 text-yellow-400 fill-yellow-400" />
-          <span>Your #1 choice for digital products</span>
+          <span>The Future is Now</span>
         </motion.div>
 
         <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-[0.9] font-poppins mb-8">
@@ -68,9 +68,8 @@ export const HeroSection: React.FC = () => {
           transition={{ delay: 0.6 }}
           className="text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto mb-12 leading-relaxed"
         >
-          We build digital infrastructure that defines the future. Tactech
-          delivers elite SaaS solutions and enterprise architectures with
-          surgical precision.
+          We build digital infrastructure that defines the future.
+          <br/>Flag bearers in innovation that drives success.
         </motion.p>
       </motion.div>
 
