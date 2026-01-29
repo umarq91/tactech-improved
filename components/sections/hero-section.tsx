@@ -68,7 +68,7 @@ export const HeroSection: React.FC = () => {
           transition={{ delay: 0.6 }}
           className="text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto mb-12 leading-relaxed"
         >
-          We build digital infrastructure that defines the future. Flag bearers in innovation that drives success.
+          Digital infrastructure for teams building what's next.
         </motion.p>
       </motion.div>
 

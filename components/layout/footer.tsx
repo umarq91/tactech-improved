@@ -53,7 +53,7 @@ const Footer = () => {
           <div className="md:col-span-2 lg:col-span-4 border-t border-gray-800 pt-8 mt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="0">
-                © {new Date().getFullYear()} Tactech. All rights reserved.
+                © {new Date().getFullYear()} TACTECH LLC. All rights reserved.
               </div>
            
             </div>
