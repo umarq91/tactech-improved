@@ -14,9 +14,9 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Tactech - Software Development & Digital Solutions",
+  title: "TACTECH - Software Development & Digital Solutions",
   description:
-    "Tactech delivers cutting-edge software solutions that drive business growth.",
+    "Digital infrastructure for teams building what's next.",
   icons: {
     icon: "/tt.png",
   },
